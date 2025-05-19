@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>视频展示</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      background: url('bg.jpg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+    video {
+      max-width: 90%;
+      max-height: 60vh;
+      border: 4px solid white;
+      border-radius: 10px;
+      background: black;
+    }
+    #endImage {
+      display: none;
+      margin-top: 20px;
+      max-width: 80%;
+      border: 2px solid #fff;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <video id="myVideo" controls playsinline>
+    <source src="video.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <img id="endImage" src="end.jpg" alt="End Image" />
+
+  <script>
+    const video = document.getElementById('myVideo');
+    const endImage = document.getElementById('endImage');
+
+    video.addEventListener('ended', () => {
+      endImage.style.display = 'block';
+    });
+
+    video.addEventListener('play', () => {
+      endImage.style.display = 'none';
+    });
+  </script>
+</body>
+</html>
