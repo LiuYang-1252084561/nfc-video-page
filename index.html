@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>视频展示</title>
+  <title>视频展示（图片按钮）</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
@@ -16,11 +16,16 @@
       flex-direction: column;
     }
     video {
-      max-width: 90%;
-      max-height: 60vh;
+      width: 100%;
+      max-width: 960px;
+      height: auto;
+      transition: transform 0.5s ease;
       border: 4px solid white;
       border-radius: 10px;
       background: black;
+    }
+    video.shrink {
+      transform: scale(0.5);
     }
     #endImage {
       display: none;
@@ -29,25 +34,50 @@
       border: 2px solid #fff;
       border-radius: 10px;
     }
+    #replayBtn {
+      display: none;
+      margin-top: 20px;
+      cursor: pointer;
+      max-width: 180px;
+      transition: transform 0.3s ease;
+    }
+    #replayBtn:hover {
+      transform: scale(1.1);
+    }
   </style>
 </head>
 <body>
   <video id="myVideo" controls playsinline>
     <source src="video.mp4" type="video/mp4">
-    Your browser does not support the video tag.
+    您的浏览器不支持 video 标签。
   </video>
+
+  <img id="replayBtn" src="replay.png" alt="再生按钮" />
   <img id="endImage" src="end.jpg" alt="End Image" />
 
   <script>
     const video = document.getElementById('myVideo');
     const endImage = document.getElementById('endImage');
+    const replayBtn = document.getElementById('replayBtn');
 
     video.addEventListener('ended', () => {
+      video.classList.add('shrink');
       endImage.style.display = 'block';
+      replayBtn.style.display = 'block';
+    });
+
+    replayBtn.addEventListener('click', () => {
+      video.classList.remove('shrink');
+      endImage.style.display = 'none';
+      replayBtn.style.display = 'none';
+      video.currentTime = 0;
+      video.play();
     });
 
     video.addEventListener('play', () => {
+      replayBtn.style.display = 'none';
       endImage.style.display = 'none';
+      video.classList.remove('shrink');
     });
   </script>
 </body>
