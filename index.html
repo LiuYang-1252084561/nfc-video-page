@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,6 +15,8 @@
       align-items: center;
       height: 100vh;
       flex-direction: column;
+      color: white;
+      font-family: Arial, sans-serif;
     }
     video {
       width: 100%;
@@ -44,16 +47,35 @@
     #replayBtn:hover {
       transform: scale(1.1);
     }
+    #unauthorized {
+      display: none;
+      font-size: 2em;
+      text-shadow: 2px 2px 5px black;
+      text-align: center;
+    }
   </style>
+  <script>
+    const answer = prompt("💗叫老公💗");
+    if (answer === null || answer.trim().toLowerCase() !== "老公") {
+      document.addEventListener("DOMContentLoaded", () => {
+        document.getElementById("unauthorized").style.display = "block";
+        document.getElementById("content").style.display = "none";
+      });
+    }
+  </script>
 </head>
 <body>
-  <video id="myVideo" controls playsinline>
-    <source src="video.mp4" type="video/mp4">
-    您的浏览器不支持 video 标签。
-  </video>
+  <div id="unauthorized">💗 宝贝不乖哦</div>
 
-  <img id="replayBtn" src="replay.png" alt="再生按钮" />
-  <img id="endImage" src="end.jpg" alt="End Image" />
+  <div id="content">
+    <video id="myVideo" controls playsinline>
+      <source src="video.mp4" type="video/mp4">
+      您的浏览器不支持 video 标签。
+    </video>
+
+    <img id="replayBtn" src="replay.png" alt="再生按钮" />
+    <img id="endImage" src="end.jpg" alt="End Image" />
+  </div>
 
   <script>
     const video = document.getElementById('myVideo');
