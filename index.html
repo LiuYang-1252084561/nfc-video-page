@@ -37,14 +37,14 @@
       border: 2px solid #fff;
       border-radius: 10px;
     }
-    #replayBtn {
+    #replayBtn, #retryBtn {
       display: none;
       margin-top: 20px;
       cursor: pointer;
       max-width: 180px;
       transition: transform 0.3s ease;
     }
-    #replayBtn:hover {
+    #replayBtn:hover, #retryBtn:hover {
       transform: scale(1.1);
     }
     #unauthorized {
@@ -55,19 +55,27 @@
     }
   </style>
   <script>
-    const answer = prompt("💗叫老公💗");
-    if (answer === null || answer.trim().toLowerCase() !== "老公") {
-      document.addEventListener("DOMContentLoaded", () => {
+    function verifyAccess() {
+      const answer = prompt("💗叫老公💗");
+      if (answer && answer.trim().toLowerCase() === "老公") {
+        document.getElementById("unauthorized").style.display = "none";
+        document.getElementById("retryBtn").style.display = "none";
+        document.getElementById("content").style.display = "flex";
+      } else {
         document.getElementById("unauthorized").style.display = "block";
+        document.getElementById("retryBtn").style.display = "block";
         document.getElementById("content").style.display = "none";
-      });
+      }
     }
+
+    document.addEventListener("DOMContentLoaded", verifyAccess);
   </script>
 </head>
 <body>
-  <div id="unauthorized">💗 宝贝不乖哦</div>
+  <div id="unauthorized">❌ 回答错误，无法进入页面！</div>
+  <img id="retryBtn" src="retry.png" alt="重试按钮" onclick="verifyAccess()" />
 
-  <div id="content">
+  <div id="content" style="display: none; flex-direction: column; align-items: center;">
     <video id="myVideo" controls playsinline>
       <source src="video.mp4" type="video/mp4">
       您的浏览器不支持 video 标签。
